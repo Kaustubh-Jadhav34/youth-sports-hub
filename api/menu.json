@@ -1,0 +1,38 @@
+{
+  "children": [
+    {
+      "title": "Home",
+      "location": "/",
+      "children": []
+    },
+    {
+      "title": "Schedule",
+      "location": "/schedule",
+      "children": []
+    },
+    {
+      "title": "Teams",
+      "location": "/teams",
+      "children": [
+        {
+          "title": "U12 Mites",
+          "location": "/teams"
+        },
+        {
+          "title": "U14 Squirts",
+          "location": "/teams"
+        }
+      ]
+    },
+    {
+      "title": "About",
+      "location": "/about",
+      "children": []
+    },
+    {
+      "title": "Contact",
+      "location": "/contact",
+      "children": []
+    }
+  ]
+}
