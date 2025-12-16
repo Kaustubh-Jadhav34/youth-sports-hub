@@ -1,9 +1,9 @@
 {
   "name": "youth-sports-hub",
   "version": "1.0.0",
-  "description": "Youth Sports Association Website - IST 441 Project 2",
+  "description": "Youth Sports Association Website - Project 2",
   "scripts": {
-    "build": "mkdir -p dist && cp index.html dist/ && cp -r api dist/ && echo 'Build complete!'",
+    "build": "mkdir -p dist/api && cp index.html dist/ && cp api/*.json dist/api/",
     "start": "npx http-server dist"
   }
 }

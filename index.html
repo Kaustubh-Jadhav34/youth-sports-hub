@@ -1,505 +1,831 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nittany Youth Hockey - Premier Youth Hockey Association</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #dc2626;
-            --accent-color: #fbbf24;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f3f4f6;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nittany Youth Hockey - Premier Youth Hockey Association</title>
 
-        [data-dark-mode="true"] {
-            --primary-color: #3b82f6;
-            --secondary-color: #ef4444;
-            --accent-color: #fcd34d;
-            --bg-primary: #1f2937;
-            --bg-secondary: #111827;
-            --text-primary: #f3f4f6;
-            --text-secondary: #d1d5db;
-        }
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root {
+      
+      --ddd-font-family: "Jost", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ddd-theme-bg: #f3f4f6;
+      --ddd-theme-surface: #ffffff;
+      --ddd-theme-surface-alt: #0b1020;
+      --ddd-theme-border-subtle: #e5e7eb;
+      --ddd-theme-text: #0f172a;
+      --ddd-theme-muted: #6b7280;
+      --ddd-theme-primary: #1d4ed8;
+      --ddd-theme-primary-soft: #dbeafe;
+      --ddd-theme-accent: #f59e0b;
+      --ddd-theme-danger: #dc2626;
+      --ddd-radius-lg: 16px;
+      --ddd-radius-md: 12px;
+      --ddd-radius-pill: 999px;
+      --ddd-gap-md: 1rem;
+      --ddd-gap-lg: 1.5rem;
+      --ddd-shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.18);
+    }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    html[data-dark-mode="true"] {
+      --ddd-theme-bg: #020617;
+      --ddd-theme-surface: #020617;
+      --ddd-theme-surface-alt: #020617;
+      --ddd-theme-border-subtle: #1f2937;
+      --ddd-theme-text: #e5e7eb;
+      --ddd-theme-muted: #9ca3af;
+      --ddd-theme-primary: #3b82f6;
+      --ddd-theme-primary-soft: rgba(37, 99, 235, 0.16);
+      --ddd-theme-accent: #facc15;
+      --ddd-theme-danger: #f97316;
+      --ddd-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.85);
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .app-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+    body {
+      font-family: var(--ddd-font-family);
+      background:
+        radial-gradient(1200px 500px at 10% -20%, #dbeafe 0, transparent 60%),
+        radial-gradient(1000px 450px at 100% 0%, #fee2e2 0, transparent 60%),
+        var(--ddd-theme-bg);
+      color: var(--ddd-theme-text);
+      min-height: 100vh;
+    }
 
-        /* Header */
-        header {
-            background: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
+    html[data-dark-mode="true"] body {
+      background:
+        radial-gradient(1200px 500px at 10% -20%, rgba(37, 99, 235, 0.16) 0, transparent 60%),
+        radial-gradient(1000px 450px at 100% 0%, rgba(248, 250, 252, 0.06) 0, transparent 60%),
+        #020617;
+    }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .app-shell {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: var(--ddd-gap-lg);
+    }
 
-        .hamburger {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
 
-        @media (max-width: 768px) {
-            .hamburger {
-                display: block;
-            }
-            nav {
-                display: none;
-            }
-            nav.active {
-                display: block;
-                position: absolute;
-                top: 60px;
-                left: 0;
-                right: 0;
-                background: var(--primary-color);
-                flex-direction: column;
-                padding: 1rem;
-            }
-        }
 
-        nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
+    header.app-header {
+      background: linear-gradient(120deg, rgba(29, 78, 216, 0.98), rgba(37, 99, 235, 0.9));
+      border-radius: var(--ddd-radius-lg);
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      color: #fff;
+      box-shadow: var(--ddd-shadow-soft);
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
 
-        nav a:hover {
-            opacity: 0.8;
-        }
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #facc15 0, #f97316 40%, #dc2626 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.45);
+    }
 
-        /* Main Content */
-        main {
-            flex: 1;
-            width: 100%;
-        }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-        .page {
-            display: none;
-        }
+    .brand-text span:first-child {
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
 
-        .page.active {
-            display: block;
-        }
+    .brand-text span:last-child {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
 
-        /* Hero */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+    .nav-toggle {
+      display: none;
+      border-radius: 999px;
+      padding: 6px 10px;
+      border: 1px solid rgba(248, 250, 252, 0.35);
+      background: rgba(15, 23, 42, 0.06);
+      color: #e5e7eb;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }
+    nav.primary-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
 
-        .cta-button {
-            background: var(--accent-color);
-            color: var(--text-primary);
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+    .nav-pill {
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.08);
+      color: #e5e7eb;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+    }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.2);
-        }
+    .nav-pill span.chevron {
+      font-size: 0.8rem;
+      opacity: 0.7;
+    }
 
-        /* Schedule Section */
-        .schedule-band {
-            padding: 3rem 2rem;
-            background: var(--bg-secondary);
-        }
+    .nav-pill:hover {
+      background: rgba(15, 23, 42, 0.18);
+      transform: translateY(-1px);
+    }
 
-        .schedule-band h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2rem;
-        }
+    .nav-pill[data-active="true"] {
+      background: #eef2ff;
+      color: #1e293b;
+      border-color: rgba(37, 99, 235, 0.85);
+    }
 
-        .game-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    
 
-        .game-card {
-            background: var(--bg-primary);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 5px solid var(--secondary-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
+    @media (max-width: 780px) {
+      header.app-header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+      }
+      nav.primary-nav {
+        display: none;
+        width: 100%;
+        margin-top: 8px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      nav.primary-nav[data-open="true"] {
+        display: flex;
+      }
+      .nav-pill {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .nav-toggle {
+        display: inline-flex;
+      }
+    }
 
-        .game-card:hover {
-            transform: translateY(-5px);
-        }
+    
 
-        .game-date {
-            font-weight: 700;
-            color: var(--secondary-color);
-            margin-bottom: 0.5rem;
-        }
+    .theme-toggle {
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.35);
+      background: rgba(15, 23, 42, 0.06);
+      color: #e5e7eb;
+      padding: 6px 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
 
-        .game-time {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
+    
 
-        .game-opponent {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+    main.app-main {
+      display: grid;
+      gap: var(--ddd-gap-lg);
+    }
 
-        .game-location {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+    .surface-card {
+      background: var(--ddd-theme-surface);
+      border-radius: var(--ddd-radius-lg);
+      border: 1px solid var(--ddd-theme-border-subtle);
+      box-shadow: 0 18px 28px rgba(15, 23, 42, 0.14);
+      overflow: hidden;
+    }
 
-        /* Content Band */
-        .content-band {
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
+    
 
-        .content-band h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
+    .hero {
+      padding: 28px 22px 24px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.1fr);
+      gap: var(--ddd-gap-lg);
+      align-items: center;
+      background:
+        radial-gradient(circle at 8% -5%, rgba(251, 191, 36, 0.22) 0, transparent 60%),
+        radial-gradient(circle at 100% 0, rgba(248, 113, 113, 0.26) 0, transparent 60%),
+        linear-gradient(120deg, #0b1020, #020617);
+      color: #f9fafb;
+    }
 
-        .content-band p {
-            margin-bottom: 1rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
+    .hero h1 {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+    }
 
-        /* Team Grid */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
+    .hero p.subhead {
+      font-size: 0.98rem;
+      max-width: 36rem;
+      color: rgba(241, 245, 249, 0.8);
+      margin-bottom: 14px;
+    }
 
-        .team-card {
-            background: var(--bg-secondary);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
+    .hero-tag {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: rgba(191, 219, 254, 0.92);
+      margin-bottom: 6px;
+    }
 
-        .team-card:hover {
-            transform: translateY(-5px);
-        }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
 
-        .team-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+    .btn-primary {
+      border-radius: var(--ddd-radius-pill);
+      padding: 8px 16px;
+      border: none;
+      background: #fbbf24;
+      color: #0b1020;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.55);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
 
-        .team-card h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 40px rgba(15, 23, 42, 0.75);
+    }
 
-        /* Footer */
-        footer {
-            background: var(--text-primary);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: auto;
-        }
+    .btn-ghost {
+      border-radius: var(--ddd-radius-pill);
+      padding: 8px 14px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: #e5e7eb;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        footer a {
-            color: var(--accent-color);
-            text-decoration: none;
-        }
+    .hero-right {
+      border-radius: var(--ddd-radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.25) 0, transparent 55%),
+                  rgba(15, 23, 42, 0.88);
+      padding: 14px 14px 10px;
+      display: grid;
+      gap: 12px;
+    }
 
-        footer a:hover {
-            text-decoration: underline;
-        }
+    .hero-metric-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
 
-        /* Dark Mode Toggle */
-        .theme-toggle {
-            background: none;
-            border: 2px solid white;
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
+    .hero-metric-row span:first-child {
+      color: rgba(209, 213, 219, 0.85);
+    }
 
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .schedule-band,
-            .content-band {
-                padding: 2rem 1rem;
-            }
-        }
-    </style>
+    .hero-metric-row span:last-child {
+      font-weight: 700;
+      color: #fbbf24;
+    }
+
+    .hero-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .hero-chip {
+      border-radius: var(--ddd-radius-pill);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: rgba(226, 232, 240, 0.95);
+    }
+
+    @media (max-width: 820px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    
+
+    .schedule-band {
+      padding: 22px 20px 18px;
+      background: var(--ddd-theme-surface);
+    }
+
+    .band-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .band-header h2 {
+      font-size: 1.1rem;
+    }
+
+    .band-header p {
+      font-size: 0.85rem;
+      color: var(--ddd-theme-muted);
+    }
+
+    .game-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .game-card {
+      border-radius: var(--ddd-radius-md);
+      border: 1px solid var(--ddd-theme-border-subtle);
+      background: linear-gradient(135deg, rgba(239, 246, 255, 0.95), #ffffff);
+      padding: 10px 12px;
+      display: grid;
+      gap: 4px;
+      font-size: 0.9rem;
+    }
+
+    html[data-dark-mode="true"] .game-card {
+      background: radial-gradient(circle at 0 0, rgba(37, 99, 235, 0.18), transparent 55%),
+                  #020617;
+    }
+
+    .game-date {
+      font-weight: 700;
+      color: var(--ddd-theme-primary);
+    }
+
+    .game-time {
+      font-size: 0.8rem;
+      color: var(--ddd-theme-muted);
+    }
+
+    .game-opponent {
+      font-weight: 600;
+    }
+
+    .game-location {
+      font-size: 0.8rem;
+      color: var(--ddd-theme-muted);
+    }
+
+
+    .content-band {
+      padding: 24px 20px 22px;
+    }
+
+    .content-band h2 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .content-band p {
+      font-size: 0.95rem;
+      color: var(--ddd-theme-muted);
+      margin-bottom: 8px;
+      line-height: 1.7;
+    }
+
+    .team-grid {
+      margin-top: 12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .team-card {
+      border-radius: var(--ddd-radius-md);
+      background: var(--ddd-theme-primary-soft);
+      padding: 14px 12px;
+      text-align: left;
+    }
+
+    .team-icon {
+      font-size: 1.9rem;
+      margin-bottom: 8px;
+    }
+
+    .team-card h3 {
+      margin-bottom: 4px;
+      font-size: 1rem;
+      color: var(--ddd-theme-primary);
+    }
+
+
+
+    footer.app-footer {
+      padding: 16px 12px 4px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--ddd-theme-muted);
+    }
+
+    footer.app-footer a {
+      color: var(--ddd-theme-accent);
+      text-decoration: none;
+    }
+
+    footer.app-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <div class="logo">🏒 Nittany Youth Hockey</div>
-            <nav id="menu">
-                <a onclick="router('/')">Home</a>
-                <a onclick="router('/schedule')">Schedule</a>
-                <a onclick="router('/teams')">Teams</a>
-                <a onclick="router('/about')">About</a>
-                <a onclick="router('/contact')">Contact</a>
-            </nav>
-            <button class="hamburger" onclick="toggleMenu()">☰</button>
-            <button class="theme-toggle" onclick="toggleDarkMode()">🌙</button>
-        </header>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">🏒</div>
+        <div class="brand-text">
+          <span>Nittany Youth Hockey</span>
+          <span>Premier Youth Hockey Association</span>
+        </div>
+      </div>
 
-        <main id="main-content"></main>
+      <div class="nav-actions">
+        <button class="nav-toggle" id="navToggle">Menu ▾</button>
+        <button class="theme-toggle" id="themeToggle" type="button">
+          <span>🌙</span>
+          <span>Theme</span>
+        </button>
+      </div>
 
-        <footer>
-            <p>&copy; 2025 Nittany Youth Hockey Association. All rights reserved.</p>
-            <p><a href="/">Home</a> | <a href="/">Privacy</a> | <a href="/">Contact</a></p>
-        </footer>
-    </div>
+      <nav class="primary-nav" id="primaryNav"></nav>
+    </header>
 
-    <script>
-        // Pages
-        const pages = {
-            '/': `
-                <section class="hero">
-                    <h1>Welcome to Nittany Youth Hockey</h1>
-                    <p>Building Champions, Creating Memories</p>
-                    <button class="cta-button" onclick="router('/schedule')">View Schedule</button>
-                </section>
+    <main class="app-main">
+      <section id="pageRoot" class="surface-card"></section>
+    </main>
 
-                <section class="schedule-band">
-                    <h2>Upcoming Games</h2>
-                    <div class="game-cards" id="schedule-container"></div>
-                </section>
+    <footer class="app-footer">
+      <p>© 2025 Nittany Youth Hockey Association. All rights reserved.</p>
+      <p><a href="?page=home">Home</a> · <a href="?page=parent-info">Parent Info</a> · <a href="?page=contact">Contact</a></p>
+    </footer>
+  </div>
 
-                <section class="content-band">
-                    <h2>Why Choose Nittany?</h2>
-                    <p>Our youth hockey association is dedicated to developing skilled athletes while fostering teamwork, discipline, and a love for the game.</p>
-                    <div class="team-grid">
-                        <div class="team-card">
-                            <div class="team-icon">🏆</div>
-                            <h3>Excellence</h3>
-                            <p>Top-tier coaching and facilities</p>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-icon">👥</div>
-                            <h3>Community</h3>
-                            <p>Strong family-oriented culture</p>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-icon">📈</div>
-                            <h3>Development</h3>
-                            <p>Progressive skill advancement</p>
-                        </div>
-                    </div>
-                </section>
-            `,
-            '/schedule': `
-                <section class="content-band">
-                    <h2>2025-2026 Season Schedule</h2>
-                    <div class="game-cards" id="schedule-container"></div>
-                </section>
-            `,
-            '/teams': `
-                <section class="content-band">
-                    <h2>Our Teams</h2>
-                    <div class="team-grid">
-                        <div class="team-card">
-                            <div class="team-icon">🐧</div>
-                            <h3>U12 Mites</h3>
-                            <p>Ages 10-12</p>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-icon">🦭</div>
-                            <h3>U14 Squirts</h3>
-                            <p>Ages 12-14</p>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-icon">🐧</div>
-                            <h3>U16 Peewees</h3>
-                            <p>Ages 14-16</p>
-                        </div>
-                        <div class="team-card">
-                            <div class="team-icon">🦭</div>
-                            <h3>U18 Juniors</h3>
-                            <p>Ages 16-18</p>
-                        </div>
-                    </div>
-                </section>
-            `,
-            '/about': `
-                <section class="content-band">
-                    <h2>About Nittany Youth Hockey</h2>
-                    <p>Founded in 1998, Nittany Youth Hockey has been a leader in youth sports development for over 25 years. We serve the Central Pennsylvania community with excellence and integrity.</p>
-                    <h3 style="margin-top: 2rem;">Our Mission</h3>
-                    <p>To provide youth with exceptional hockey training in a supportive, inclusive environment that builds character, skills, and lifelong friendships.</p>
-                    <h3 style="margin-top: 2rem;">Our Values</h3>
-                    <ul style="margin-left: 2rem; margin-top: 1rem;">
-                        <li>Excellence in coaching and instruction</li>
-                        <li>Respect for the game and each other</li>
-                        <li>Commitment to community</li>
-                        <li>Integrity in all we do</li>
-                    </ul>
-                </section>
-            `,
-            '/contact': `
-                <section class="content-band">
-                    <h2>Contact Us</h2>
-                    <p>Email: info@nittanyyouthhockey.org</p>
-                    <p>Phone: (814) 555-0123</p>
-                    <p>Address: State College, PA 16801</p>
-                    <h3 style="margin-top: 2rem;">Follow Us</h3>
-                    <p>
-                        <a href="/">Facebook</a> | 
-                        <a href="/">Instagram</a> | 
-                        <a href="/">Twitter</a>
-                    </p>
-                </section>
-            `
-        };
+  <script>
+    
 
-        // Schedule data
-        const scheduleData = [
-            { date: "Dec 15, 2025", time: "6:00 PM", team: "U18 Juniors", opponent: "Valley Youth Hockey", location: "Ice Arena" },
-            { date: "Dec 17, 2025", time: "7:30 PM", team: "U16 Peewees", opponent: "Northside Youth", location: "Community Center" },
-            { date: "Dec 20, 2025", time: "5:00 PM", team: "U14 Squirts", opponent: "Eastern Youth", location: "Ice Arena" },
-            { date: "Jan 5, 2026", time: "6:00 PM", team: "U12 Mites", opponent: "Western Youth", location: "Community Center" },
-            { date: "Jan 10, 2026", time: "7:00 PM", team: "U18 Juniors", opponent: "State Champions", location: "Ice Arena" },
-            { date: "Jan 15, 2026", time: "5:30 PM", team: "U16 Peewees", opponent: "Riverside Youth", location: "Community Center" }
-        ];
+    async function fetchJSON(path) {
+      const res = await fetch(path);
+      if (!res.ok) throw new Error("Failed to load " + path);
+      return res.json();
+    }
 
-        // Router function
-        function router(path) {
-            window.history.pushState({}, '', path);
-            renderPage(path);
-        }
+    
 
-        // Render page
-        function renderPage(path) {
-            const mainContent = document.getElementById('main-content');
-            mainContent.innerHTML = pages[path] || pages['/'];
-            
-            // Load schedule if needed
-            if (path === '/' || path === '/schedule') {
-                loadSchedule();
-            }
-        }
+    function getCurrentPage() {
+      const sp = new URLSearchParams(window.location.search);
+      return sp.get("page") || "home";
+    }
 
-        // Load schedule
-        function loadSchedule() {
-            const container = document.getElementById('schedule-container');
-            if (container) {
-                container.innerHTML = scheduleData.map(game => `
-                    <div class="game-card">
-                        <div class="game-date">${game.date}</div>
-                        <div class="game-time">${game.time}</div>
-                        <div class="game-opponent">${game.team} vs ${game.opponent}</div>
-                        <div class="game-location">📍 ${game.location}</div>
-                    </div>
-                `).join('');
-            }
-        }
+    function pushPage(pageId) {
+      const sp = new URLSearchParams(window.location.search);
+      sp.set("page", pageId);
+      window.history.pushState({}, "", "?" + sp.toString());
+      renderApp();
+    }
 
-        // Dark mode toggle
-        function toggleDarkMode() {
-            const isDark = document.documentElement.getAttribute('data-dark-mode') === 'true';
-            document.documentElement.setAttribute('data-dark-mode', !isDark);
-            localStorage.setItem('darkMode', !isDark);
-        }
+    window.addEventListener("popstate", () => renderApp());
 
-        // Hamburger menu toggle
-        function toggleMenu() {
-            const menu = document.getElementById('menu');
-            menu.classList.toggle('active');
-        }
+    
 
-        // Initialize
-        window.addEventListener('popstate', () => {
-            renderPage(window.location.pathname);
-        });
+    function renderHome(scheduleGames) {
+      return `
+        <div class="hero">
+          <div>
+            <div class="hero-tag">Elite youth hockey for Central PA</div>
+            <h1>Building Champions, Creating Memories</h1>
+            <p class="subhead">
+              Nittany Youth Hockey develops players ages 6–18 with professional‑grade
+              coaching, modern training tools, and a tight‑knit community of families.
+            </p>
+            <div class="hero-actions">
+              <button class="btn-primary" data-route="schedule">
+                View schedule <span>↗</span>
+              </button>
+              <button class="btn-ghost" data-route="parent-info">
+                Parent info
+              </button>
+            </div>
+          </div>
+          <div class="hero-right">
+            <div class="hero-metric-row">
+              <span>Active players</span>
+              <span>160+</span>
+            </div>
+            <div class="hero-metric-row">
+              <span>Teams this season</span>
+              <span>8 squads</span>
+            </div>
+            <div class="hero-metric-row">
+              <span>Ice hours / week</span>
+              <span>40+</span>
+            </div>
+            <div class="hero-chip-row">
+              <span class="hero-chip">Travel & in‑house leagues</span>
+              <span class="hero-chip">Goalie development</span>
+              <span class="hero-chip">Academic‑first culture</span>
+            </div>
+          </div>
+        </div>
+        <div class="schedule-band">
+          <div class="band-header">
+            <div>
+              <h2>Upcoming games</h2>
+              <p>Key matchups across all Nittany teams in the next two weeks.</p>
+            </div>
+            <button class="btn-ghost" data-route="schedule">Full schedule</button>
+          </div>
+          <div class="game-cards">
+            ${scheduleGames.map(gameCardTemplate).join("")}
+          </div>
+        </div>
+        <div class="content-band">
+          <h2>Why families skate with Nittany</h2>
+          <p>
+            Our association combines experienced USA Hockey‑certified coaches with
+            a development model that emphasizes skill progression, character, and fun.
+          </p>
+          <div class="team-grid">
+            <article class="team-card">
+              <div class="team-icon">🏆</div>
+              <h3>Player development</h3>
+              <p>Progressive curriculum from Learn‑to‑Skate through U18.</p>
+            </article>
+            <article class="team-card">
+              <div class="team-icon">👨‍👩‍👧‍👦</div>
+              <h3>Family culture</h3>
+              <p>Transparent communication, volunteer‑driven, community‑focused.</p>
+            </article>
+            <article class="team-card">
+              <div class="team-icon">📊</div>
+              <h3>Data‑informed</h3>
+              <p>Video review, skills tracking, and goalie analytics where it matters.</p>
+            </article>
+          </div>
+        </div>
+      `;
+    }
 
-        // Check dark mode preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.documentElement.setAttribute('data-dark-mode', 'true');
-        }
+    function renderSchedule(scheduleGames) {
+      return `
+        <div class="content-band">
+          <h2>Association schedule</h2>
+          <p>All association games from the next block of the season.</p>
+          <div class="game-cards">
+            ${scheduleGames.map(gameCardTemplate).join("")}
+          </div>
+        </div>
+      `;
+    }
 
-        // Initial render
-        renderPage(window.location.pathname || '/');
-    </script>
+    function renderTeams() {
+      return `
+        <div class="content-band">
+          <h2>Our teams</h2>
+          <p>From mites to juniors, Nittany fields competitive teams across age levels.</p>
+          <div class="team-grid">
+            <article class="team-card">
+              <div class="team-icon">🐧</div>
+              <h3>U12 Mites</h3>
+              <p>Foundations of skating, edge work, and team play.</p>
+            </article>
+            <article class="team-card">
+              <div class="team-icon">🦭</div>
+              <h3>U14 Squirts</h3>
+              <p>Systems, positional play, and stamina training.</p>
+            </article>
+            <article class="team-card">
+              <div class="team-icon">🐻</div>
+              <h3>U16 Peewees</h3>
+              <p>Advanced tactics, strength, and leadership roles.</p>
+            </article>
+            <article class="team-card">
+              <div class="team-icon">🦁</div>
+              <h3>U18 Juniors</h3>
+              <p>Exposure events, scouting prep, and next‑level readiness.</p>
+            </article>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAbout() {
+      return `
+        <div class="content-band">
+          <h2>About Nittany Youth Hockey</h2>
+          <p>
+            Founded in 1998, Nittany Youth Hockey has grown into a premier youth
+            hockey association serving Central Pennsylvania. Our mission is to
+            develop great hockey players — and even better people.
+          </p>
+          <h3 style="margin-top: 1.5rem;">Mission</h3>
+          <p>
+            Provide a safe, inclusive, and competitive hockey environment that
+            builds skills, confidence, and lifelong friendships.
+          </p>
+          <h3 style="margin-top: 1.5rem;">Core values</h3>
+          <ul style="margin-left: 1.6rem; margin-top: .6rem; color: var(--ddd-theme-muted);">
+            <li>Respect for the game and each other</li>
+            <li>Player‑first development and safety</li>
+            <li>Transparent communication with families</li>
+            <li>Community service and giving back</li>
+          </ul>
+        </div>
+      `;
+    }
+
+    function renderContact() {
+      return `
+        <div class="content-band">
+          <h2>Contact & rink info</h2>
+          <p>Email: <a href="mailto:info@nittanyyouthhockey.org">info@nittanyyouthhockey.org</a></p>
+          <p>Phone: (814) 555‑0123</p>
+          <p>Home rink: Pegula Ice Arena · State College, PA</p>
+          <h3 style="margin-top: 1.5rem;">Stay connected</h3>
+          <p>
+            <a href="#">Facebook</a> ·
+            <a href="#">Instagram</a> ·
+            <a href="#">X (Twitter)</a>
+          </p>
+        </div>
+      `;
+    }
+
+    function gameCardTemplate(game) {
+      return `
+        <article class="game-card">
+          <div class="game-date">${game.date}</div>
+          <div class="game-time">${game.time} · ${game.team}</div>
+          <div class="game-opponent">${game.team} vs ${game.opponent}</div>
+          <div class="game-location">📍 ${game.location}</div>
+        </article>
+      `;
+    }
+
+    
+
+    async function renderMenu(activePage) {
+      const navEl = document.getElementById("primaryNav");
+      const data = await fetchJSON("/api/menu.json");
+      const items = data.children || [];
+      navEl.innerHTML = items.map(item => {
+        const pageId = locationToPageId(item.location);
+        const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+        return `
+          <button class="nav-pill"
+                  data-page="${pageId}"
+                  data-active="${pageId === activePage}"
+                  ${hasChildren ? 'aria-haspopup="true"' : ""}>
+            <span>${item.title}</span>
+            ${hasChildren ? '<span class="chevron">▾</span>' : ""}
+          </button>
+        `;
+      }).join("");
+    }
+
+    function locationToPageId(location) {
+      if (!location || location === "/") return "home";
+      if (location.startsWith("/schedule")) return "schedule";
+      if (location.startsWith("/teams")) return "teams";
+      if (location.startsWith("/about")) return "about";
+      if (location.startsWith("/contact")) return "contact";
+      return "home";
+    }
+
+    
+
+    function initTheme() {
+      const stored = localStorage.getItem("nyha-theme-dark");
+      if (stored === "true") {
+        document.documentElement.setAttribute("data-dark-mode", "true");
+      }
+      const btn = document.getElementById("themeToggle");
+      btn.addEventListener("click", () => {
+        const isDark = document.documentElement.getAttribute("data-dark-mode") === "true";
+        document.documentElement.setAttribute("data-dark-mode", String(!isDark));
+        localStorage.setItem("nyha-theme-dark", String(!isDark));
+      });
+    }
+
+    function initNavToggle() {
+      const toggle = document.getElementById("navToggle");
+      const nav = document.getElementById("primaryNav");
+      toggle.addEventListener("click", () => {
+        const open = nav.getAttribute("data-open") === "true";
+        nav.setAttribute("data-open", String(!open));
+      });
+    }
+
+    
+
+    async function renderApp() {
+      const pageId = getCurrentPage();
+      const pageRoot = document.getElementById("pageRoot");
+
+      
+      const scheduleData = await fetchJSON("/api/schedule.json");
+      const games = scheduleData.games || [];
+
+      await renderMenu(pageId);
+
+      let html;
+      switch (pageId) {
+        case "schedule":
+          html = renderSchedule(games);
+          break;
+        case "teams":
+          html = renderTeams();
+          break;
+        case "about":
+          html = renderAbout();
+          break;
+        case "contact":
+          html = renderContact();
+          break;
+        case "home":
+        default:
+          html = renderHome(games.slice(0, 3));
+      }
+      pageRoot.innerHTML = html;
+
+      
+      pageRoot.querySelectorAll("[data-route]").forEach(btn => {
+        btn.addEventListener("click", () => pushPage(btn.getAttribute("data-route")));
+      });
+
+      
+      document.querySelectorAll(".nav-pill").forEach(btn => {
+        btn.addEventListener("click", () => pushPage(btn.getAttribute("data-page")));
+      });
+    }
+
+
+
+    initTheme();
+    initNavToggle();
+    renderApp();
+  </script>
 </body>
 </html>
